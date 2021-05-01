@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/WooliesXTechChallengeApi/.vs/WooliesXTechChallengeApi
+/WooliesXTechChallengeApi/WooliesXTechChallengeApi/.config
+/WooliesXTechChallengeApi/WooliesXTechChallengeApi/bin
+/WooliesXTechChallengeApi/WooliesXTechChallengeApi/obj
+/WooliesXTechChallengeApi/WooliesXTechChallengeApi/Properties/serviceDependencies.WooliesXTechChallengeApi20210430235415 - Web Deploy.json.user
+/WooliesXTechChallengeApi/WooliesXTechChallengeApi/Properties/serviceDependencies.WooliesXTechChallengeApi20210430235415 - Web Deploy.json
+/WooliesXTechChallengeApi/WooliesXTechChallengeApi/Properties/serviceDependencies.json
+/WooliesXTechChallengeApi/WooliesXTechChallengeApi/Properties/ServiceDependencies/WooliesXTechChallengeApi20210430235415 - Web Deploy
+/WooliesXTechChallengeApi/WooliesXTechChallengeApi/Properties/PublishProfiles
