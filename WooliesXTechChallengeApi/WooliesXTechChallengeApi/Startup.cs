@@ -13,6 +13,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
+using WooliesXTechChallengeApi.Implementations.Helpers;
+using WooliesXTechChallengeApi.Implementations.Services;
+using WooliesXTechChallengeApi.Inferfaces.Helpers;
+using WooliesXTechChallengeApi.Inferfaces.Services;
+
 namespace WooliesXTechChallengeApi
 {
 	public class Startup
@@ -33,6 +38,13 @@ namespace WooliesXTechChallengeApi
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WooliesXTechChallengeApi", Version = "v1" });
 			});
+			services.AddSingleton<IProductService, ProductService>()
+					.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
+					.AddSingleton<ITrolleyService, TrolleyService>()
+					.AddSingleton<IUserService, UserService>()
+					.AddHttpClient<IHttpClientHelper<ProductService>, HttpClientHelper<ProductService>>();
+
+					
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

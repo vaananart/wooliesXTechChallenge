@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using WooliesXTechChallengeApi.Controllers.ResultModels;
 using WooliesXTechChallengeApi.Inferfaces.Services;
 
 namespace WooliesXTechChallengeApi.Controllers
@@ -27,9 +28,16 @@ namespace WooliesXTechChallengeApi.Controllers
 		}
 
 		[HttpGet]
-		public IEnumerable<UserDetails> Get()
+		public async Task<UserDetails> Get()
 		{
-			return null;
+			_logger.LogInformation("UserController:GET: Logged before executing UserService.");
+			try
+			{ }
+			catch (AggregateException ex)
+			{ }
+			finally { 
+			}
+			return await Task.FromResult(_userService.GetUser());
 		}
 	}
 }

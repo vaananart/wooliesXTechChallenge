@@ -7,5 +7,6 @@ namespace WooliesXTechChallengeApi.Inferfaces.Services
 {
 	public interface IProductService
 	{
+		
 	}
 }

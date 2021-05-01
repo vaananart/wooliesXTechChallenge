@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using WooliesXTechChallengeApi.Controllers.InputModel;
+using WooliesXTechChallengeApi.Controllers.InputModels;
 using WooliesXTechChallengeApi.Inferfaces.Services;
 
 namespace WooliesXTechChallengeApi.Controllers
