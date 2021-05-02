@@ -19,11 +19,11 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 	{
 		private readonly ILogger _logger;
 		private readonly IShopperHistoryService _shopperHistoryService;
-		private readonly IHttpClientHelper _productResourceHttpClient;
+		private readonly IHttpGETClientHelper _productResourceHttpClient;
 
 		public ProductsService(ILogger<ProductsService> logger
 								, IShopperHistoryService shopperHistoryService
-								, IHttpClientHelper httpClientHelper)
+								, IHttpGETClientHelper httpClientHelper)
 		{
 			_logger = logger;
 			_shopperHistoryService = shopperHistoryService;
@@ -36,46 +36,67 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 
 			string result = string.Empty;
 
-			if (option == SortOptionEnums.Recommended)
-			{
-				var rawProductList = (await _shopperHistoryService.GetHistory())
-									.SelectMany(x => x.Products);
-
-				//NOTE: Definition of "Recommended" => based on popularity
-				//This means the number of product lines * quantity to find
-				// the product which is reducing in the stock greatly in the history
-				//REVIEW:TEST: test this with quantity and number of product repeatitions per customer order
-				return GetProductsByPopularitySorted(rawProductList);
-			}
+			
 
 			try
 			{
 				result = await _productResourceHttpClient.CallGet<ProductsService>();
 				_logger.LogDebug($"{ typeof(ProductsService).Name}:GetSortedProducts: received payload : {result}");
+			
+
+				var products = JsonConvert.DeserializeObject<IEnumerable<ProductModel>>(result);
+
+				switch (option)
+				{
+					case SortOptionEnums.Low:
+						return GetProductsByPriceAscending(products);
+					case SortOptionEnums.High:
+						return GetProductsByPriceDescending(products);
+					case SortOptionEnums.Ascending:
+						return GetProductsByNameAscending(products);
+					case SortOptionEnums.Descending:
+						return GetProductsByNameDescending(products);
+					case SortOptionEnums.Recommended:
+						return await GetSortedProductsByPopularity(products);
+				}
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError($"{ typeof(ProductsService).Name}:GetSortedProducts: received error : {ex}");
-			}
-
-			var products = JsonConvert.DeserializeObject<IEnumerable<ProductModel>>(result);
-
-			switch (option)
-			{
-				case SortOptionEnums.Low:
-					return GetProductsByPriceAscending(products);
-				case SortOptionEnums.High:
-					return GetProductsByPriceDescending(products);
-				case SortOptionEnums.Ascending:
-					return GetProductsByNameAscending(products);
-				case SortOptionEnums.Descending:
-					return GetProductsByNameDescending(products);
+				_logger.LogError($"{ typeof(ProductsService).Name}:GetSortedProducts: Error : {ex}");
+				throw new Exception($"{ typeof(ProductsService).Name}:GetSortedProducts: Error : {ex}");
 			}
 
 			return new List<ProductModel>();
 		}
 
-		private IEnumerable<ProductModel> GetProductsByPopularitySorted(IEnumerable<ProductModel> rawProductList) => (
+		private async Task<IEnumerable<ProductModel>> GetSortedProductsByPopularity(IEnumerable<ProductModel> products)
+		{
+			IEnumerable<ProductModel> shopperHistoryProducts = null;
+
+			try
+			{
+				shopperHistoryProducts = (await _shopperHistoryService.GetHistory())
+											.SelectMany(x => x.Products);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"ProductsService:GetSortedProductsByPopularity: Error: {ex.Message}");
+				throw new Exception($"ProductsService:GetSortedProductsByPopularity: Error: {ex.Message}");
+			}
+			var localResult = GetShopperHistoryProductsByPopularitySorted(shopperHistoryProducts).ToList();
+
+			var localResultNames = localResult.Select(x => x.Name);
+			var setDifference = products.Where(x => !localResultNames.Contains(x.Name));
+			localResult.AddRange(setDifference);
+			return localResult.AsEnumerable();
+		}
+
+		public Task GetSortedProducts(object sortOptionEnum)
+		{
+			throw new NotImplementedException();
+		}
+
+		private IEnumerable<ProductModel> GetShopperHistoryProductsByPopularitySorted(IEnumerable<ProductModel> rawProductList) => (
 																													from product in rawProductList
 																													group product by new { product.Name }
 																													into GroupByName

@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using WooliesXTechChallengeApi.Controllers.InputModels;
+using Newtonsoft.Json.Linq;
+
 using WooliesXTechChallengeApi.Inferfaces.Services;
 
 namespace WooliesXTechChallengeApi.Controllers
 {
-	[Route("api/trolleyTotal")]
+	[Route("api/cart")]
 	[ApiController]
 	public class TrolleyController : ControllerBase
 	{
@@ -25,10 +23,20 @@ namespace WooliesXTechChallengeApi.Controllers
 			_logger = logger;
 			_trolleyService = trolleyService;
 		}
-		[HttpPost]
-		public ActionResult GetTotal([FromBody] IEnumerable<ShoppingLineItem> shoppingList)
+		[HttpPost("trolleyTotal")]
+		public async Task<ActionResult> ComputeTotal([FromBody] JObject order)
 		{
-			return null;
+			_logger.LogInformation($"TrolleyController:ComputeTotal:order => {order.ToString()}");
+			string result = string.Empty;
+			try
+			{
+				result = await _trolleyService.CalculateLowestTotal(order);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+			return Ok(result);
 		}
 	}
 }

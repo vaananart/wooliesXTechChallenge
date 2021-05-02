@@ -17,10 +17,10 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 	public class ShopperHistoryService : IShopperHistoryService
 	{
 		private readonly ILogger<ShopperHistoryService> _logger;
-		private readonly IHttpClientHelper _shopperHistoryResourceHttpClient;
+		private readonly IHttpGETClientHelper _shopperHistoryResourceHttpClient;
 
 		public ShopperHistoryService(ILogger<ShopperHistoryService> logger
-									, IHttpClientHelper httpClientHelper)
+									, IHttpGETClientHelper httpClientHelper)
 		{
 			_logger = logger;
 			_shopperHistoryResourceHttpClient = httpClientHelper;
@@ -28,8 +28,25 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 
 		public async Task<IEnumerable<ShopperHistoryModel>> GetHistory()
 		{
-			var history = await _shopperHistoryResourceHttpClient.CallGet<ShopperHistoryService>();
-			var deserialisedCollection = JsonConvert.DeserializeObject<IEnumerable<ShopperHistoryModel>>(history); 
+			var history = string.Empty;
+			IEnumerable<ShopperHistoryModel> deserialisedCollection = null;
+			try
+			{
+				history = await _shopperHistoryResourceHttpClient.CallGet<ShopperHistoryService>();
+				deserialisedCollection = JsonConvert.DeserializeObject<IEnumerable<ShopperHistoryModel>>(history);
+				_logger.LogInformation($"ShopperHistoryService:GetHistory: payload is processed successfully.");
+
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError($"ShopperHistoryService:GetHistory: Error: {ex.Message}");
+				if(!string.IsNullOrEmpty(history))
+					_logger.LogError($"ShopperHistoryService:GetHistory: Captured result from the query: {history}");
+
+				throw new Exception($"ShopperHistoryService:GetHistory: caught the following exception: {ex.Message}");
+
+			}
+
 			return deserialisedCollection;
 		}
 	}

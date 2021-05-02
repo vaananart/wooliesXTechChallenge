@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesXTechChallengeApi", "WooliesXTechChallengeApi\WooliesXTechChallengeApi.csproj", "{301D3CE9-6AD0-4109-9885-E6D3710803DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WooliesXTechChallengeApi", "WooliesXTechChallengeApi\WooliesXTechChallengeApi.csproj", "{301D3CE9-6AD0-4109-9885-E6D3710803DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesXTechChallange.Tests", "WooliesXTechChallange.Tests\WooliesXTechChallange.Tests.csproj", "{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{301D3CE9-6AD0-4109-9885-E6D3710803DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{301D3CE9-6AD0-4109-9885-E6D3710803DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{301D3CE9-6AD0-4109-9885-E6D3710803DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

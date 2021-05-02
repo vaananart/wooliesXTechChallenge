@@ -7,7 +7,6 @@ namespace WooliesXTechChallengeApi.Enums
 {
 	public enum SortOptionEnums
 	{
-		None,
 		Low,
 		High,
 		Ascending,

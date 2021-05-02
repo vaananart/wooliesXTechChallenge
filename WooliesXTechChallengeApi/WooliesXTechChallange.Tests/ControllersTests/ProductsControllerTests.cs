@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace WooliesXTechChallengeApi.Controllers.InputModels
+namespace WooliesXTechChallange.Tests.ControllersTests
 {
-	public class ShoppingLineItem
+	class ProductsControllerTests
 	{
 	}
 }

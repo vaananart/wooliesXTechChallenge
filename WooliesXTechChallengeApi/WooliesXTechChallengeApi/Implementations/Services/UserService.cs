@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 using WooliesXTechChallengeApi.Controllers.ResultModels;
+using WooliesXTechChallengeApi.DataModels;
 using WooliesXTechChallengeApi.Inferfaces.Services;
 
 namespace WooliesXTechChallengeApi.Implementations.Services
@@ -26,14 +27,14 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 			_logger = logger;
 			_configuration = configuration;
 		}
-		public UserDetailsResultModel GetUser()
+		public async Task<UserDetailsModel> GetUser()
 		{
 			_logger.LogInformation("UserService:GetUser: Returning user name and token.");
-			return new UserDetailsResultModel
+			return await Task.FromResult(new UserDetailsModel
 			{
 				Name = _configuration[nameConfig],
 				Token = _configuration[tokenConfig]
-			};
+			});
 		}
 	}
 }

@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\Configuration\configurations.json" />
+    <None Remove="Data\Products\ASCENDINGSortedOutput.json" />
+    <None Remove="Data\Products\DESCENDINGSortedOutput.json" />
+    <None Remove="Data\Products\HIGHSortedOutput.json" />
+    <None Remove="Data\Products\LOWSortedOutput.json" />
+    <None Remove="Data\Products\RECOMMENDEDSortedOutput.json" />
+    <None Remove="Data\Products\SampleProducts.json" />
+    <None Remove="Data\ShippingHistory\SampleShopperHistory.json" />
+    <None Remove="Data\TrolleyCalculation\TrolleyCalculationinput.json" />
+    <None Remove="Data\User\ExpectedUserDetails.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Configuration\configurations.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Products\ASCENDINGSortedOutput.json" />
+    <EmbeddedResource Include="Data\Products\DESCENDINGSortedOutput.json" />
+    <EmbeddedResource Include="Data\Products\HIGHSortedOutput.json" />
+    <EmbeddedResource Include="Data\Products\LOWSortedOutput.json" />
+    <EmbeddedResource Include="Data\Products\RECOMMENDEDSortedOutput.json" />
+    <EmbeddedResource Include="Data\Products\SampleProducts.json" />
+    <EmbeddedResource Include="Data\ShopperHistory\SampleShopperHistory.json" />
+    <EmbeddedResource Include="Data\TrolleyCalculation\TrolleyCalculationInput.json" />
+    <EmbeddedResource Include="Data\User\ExpectedUserDetails.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WooliesXTechChallengeApi\WooliesXTechChallengeApi.csproj" />
+  </ItemGroup>
+
+</Project>

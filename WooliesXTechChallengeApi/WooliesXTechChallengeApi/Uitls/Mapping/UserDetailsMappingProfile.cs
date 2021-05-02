@@ -10,11 +10,11 @@ using WooliesXTechChallengeApi.DataModels;
 
 namespace WooliesXTechChallengeApi.Uitls.Mapping
 {
-	public class ProductMappingProfile : Profile
+	public class UserDetailsMappingProfile : Profile
 	{
-		public ProductMappingProfile()
+		public UserDetailsMappingProfile()
 		{
-			CreateMap<ProductModel, ProductResultModel>();
+			CreateMap<UserDetailsModel, UserDetailsResultModel>();
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using AutoMapper;
@@ -31,12 +32,21 @@ namespace WooliesXTechChallengeApi.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IEnumerable<ProductResultModel>> Get(SortOptionEnums sortOption)
+		public async Task<ActionResult> Get(SortOptionEnums sortOption)
 		{
 			_logger.LogInformation($"ProductController:Get: Received sortOption:{sortOption}");
-			var result = await _productService.GetSortedProducts(sortOption);
-			var convertedResult = _mapper.Map<IEnumerable<ProductModel>, IEnumerable<ProductResultModel>>(result);
-			return convertedResult;
+			IEnumerable<ProductResultModel> convertedResult = null;
+			try
+			{ 
+				var result = await _productService.GetSortedProducts(sortOption);
+				convertedResult =_mapper.Map<IEnumerable<ProductModel>, IEnumerable<ProductResultModel>>(result);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+
+			return Ok(convertedResult);
 		}
 	}
 }

@@ -17,6 +17,7 @@ using WooliesXTechChallengeApi.Implementations.Helpers;
 using WooliesXTechChallengeApi.Implementations.Services;
 using WooliesXTechChallengeApi.Inferfaces.Helpers;
 using WooliesXTechChallengeApi.Inferfaces.Services;
+using WooliesXTechChallengeApi.Middlewares;
 
 namespace WooliesXTechChallengeApi
 {
@@ -32,7 +33,7 @@ namespace WooliesXTechChallengeApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-
+			services.AddApplicationInsightsTelemetry();
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
@@ -44,16 +45,22 @@ namespace WooliesXTechChallengeApi
 					.AddSingleton<IUserService, UserService>()
 					.AddSingleton<IProductsService, ProductsService>()
 					.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
-					.AddSingleton<IHttpClientHelper, HttpClientHelper>()
+					.AddSingleton<ITrolleyService, TrolleyService>()
+					.AddSingleton<IHttpGETClientHelper, HttpGETClientHelper>()
+					.AddSingleton<IHttpPOSTClientHelper, HttpPOSTClientHelper>()
 					.AddHttpClient()
 					.AddAutoMapper(typeof(Startup));
 
-					
+			services.AddMvc()
+					.AddNewtonsoftJson();
+			services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			app.UseMiddleware<TracingMiddleware>();
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
