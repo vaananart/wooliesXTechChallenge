@@ -2,6 +2,52 @@
 
 ### Summary Pointers:
 
+
+### Running the test with wooliesx api
+
+## Exercise 1:
+To test and verify Exercise 1, following is the requested in passed in the swagger:
+![](./resources/Exercise1-screenshot.jpg)
+
+```
+{
+  "token": "07a1fed8-57de-410c-b2de-ecc425dd1fb5
+",
+  "url": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api"
+}
+```
+
+## Exercise 2:
+To test and verify Exercise 2, following is the requested in passed in the swagger:
+![](./resources/Exercise2-screenshot.jpg)
+
+```
+{
+  "token": "07a1fed8-57de-410c-b2de-ecc425dd1fb5",
+  "url": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/products?sortOption=Low"
+}
+```
+
+## Exercise 3:
+To test and verify Exercise 3, following is the requested in passed in the swagger:
+![](./resources/Exercise3-screenshot.jpg)
+
+```
+{
+    "token": "07a1fed8-57de-410c-b2de-ecc425dd1fb5",
+    "url": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/cart"
+}
+```
+
+#### Odd Behaviour:
+
+I've noticed that this website is not working at the moment,
+https://dev-wooliesx-recruitment.azurewebsites.net/exercise
+
+Noticed that the website is not sending the token to the backend. Following is the screenshot.
+![](./resources/odd-behaviour.jpg)
+
+
 #### Source Code:
 * I used GitFlow pattern to branching out of master and working on develop branch
 
@@ -57,6 +103,9 @@ I  am happy that I was able to implement some new features of the C# language.
 * Improve on Swagger documentation on the Apis.
 * Finish of the unit tests for controller layer.
 * Not able to setup swagger in Azure cloud, so would be nice to know why and find a workaround. (Note: Swagger in working locally)
+
+
+
 
 
 
