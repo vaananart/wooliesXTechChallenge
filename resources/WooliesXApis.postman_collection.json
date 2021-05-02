@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "953e7669-a201-43f1-8ac9-6282187608b4",
+		"name": "WooliesXApis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/user",
+					"protocol": "https",
+					"host": [
+						"wooliesxtechchallengeapi20210430235415",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RecommendedProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/products?sortOption=Recommended",
+					"protocol": "https",
+					"host": [
+						"wooliesxtechchallengeapi20210430235415",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "sortOption",
+							"value": "Recommended"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LowProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/products?sortOption=Low",
+					"protocol": "https",
+					"host": [
+						"wooliesxtechchallengeapi20210430235415",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "sortOption",
+							"value": "Low"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HighProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/products?sortOption=High",
+					"protocol": "https",
+					"host": [
+						"wooliesxtechchallengeapi20210430235415",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "sortOption",
+							"value": "High"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AscendingProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/products?sortOption=Ascending",
+					"protocol": "https",
+					"host": [
+						"wooliesxtechchallengeapi20210430235415",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "sortOption",
+							"value": "Ascending"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DescendingProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/products?sortOption=Descending",
+					"protocol": "https",
+					"host": [
+						"wooliesxtechchallengeapi20210430235415",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "sortOption",
+							"value": "Descending"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TrollyCalculate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"Products\": [\r\n\t\t{\r\n\t\t\t\"Name\": \"1\",\r\n\t\t\t\"Price\": 2.0\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"Name\": \"2\",\r\n\t\t\t\"Price\": 5.0\r\n\t\t}\r\n\t],\r\n\t\"Specials\": [\r\n\t\t{\r\n\t\t\t\"Quantities\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"Name\": \"1\",\r\n\t\t\t\t\t\"Quantity\": 3\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"Name\": \"2\",\r\n\t\t\t\t\t\"Quantity\": 0\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"Total\": 5.0\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"Quantities\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"Name\": \"1\",\r\n\t\t\t\t\t\"Quantity\": 1\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"Name\": \"2\",\r\n\t\t\t\t\t\"Quantity\": 2\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"Total\": 10.0\r\n\t\t}\r\n\t],\r\n\t\"Quantities\": [\r\n\t\t{\r\n\t\t\t\"Name\": \"1\",\r\n\t\t\t\"Quantity\": 3\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"Name\": \"2\",\r\n\t\t\t\"Quantity\": 2\r\n\t\t}\r\n\t]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/cart/trolleyTotal",
+					"protocol": "https",
+					"host": [
+						"wooliesxtechchallengeapi20210430235415",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"cart",
+						"trolleyTotal"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
