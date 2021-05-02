@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using AutoMapper;
+
 using WooliesXTechChallengeApi.Controllers.ResultModels;
 using WooliesXTechChallengeApi.DataModels;
 
-namespace WooliesXTechChallengeApi.Inferfaces.Services
+namespace WooliesXTechChallengeApi.Uitls.Mapping
 {
-	public interface IShopperHistoryService
+	public class ProductMappingProfile : Profile
 	{
-		Task<IEnumerable<ShopperHistoryModel>> GetHistory();
+		public ProductMappingProfile() {
+			CreateMap<ProductModel, ProductResultModel>();
+		}
 	}
 }

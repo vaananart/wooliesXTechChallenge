@@ -11,9 +11,9 @@ namespace WooliesXTechChallengeApi.Inferfaces.Helpers
 	 * all the http calls and make it generic so that it taps into configuration
 	 * information with the TService.
 	 */
-	public interface IHttpClientHelper<TService>
+	public interface IHttpClientHelper
 	{
-		Task<string> CallGet();
+		Task<string> CallGet<TService>();
 
 		HttpClient CallPost();
 	}

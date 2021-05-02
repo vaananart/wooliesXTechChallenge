@@ -10,7 +10,7 @@ using WooliesXTechChallengeApi.Inferfaces.Helpers;
 
 namespace WooliesXTechChallengeApi.Implementations.Helpers
 {
-	public class HttpClientHelper<TService> : IHttpClientHelper<TService>
+	public class HttpClientHelper : IHttpClientHelper
 	{
 		private const string serviceKeyword = "Service";
 		private const string httpResourceBaseAddressConfigName = "wooliesXapis:BaseUrl";
@@ -19,7 +19,12 @@ namespace WooliesXTechChallengeApi.Implementations.Helpers
 		//
 		private readonly IHttpClientFactory _clientFactory;
 		private readonly IConfiguration _configuration;
-		
+
+
+		//public HttpClientHelper(IHttpClientFactory clientFactory)
+		//{
+		//	_clientFactory = clientFactory;
+		//}
 
 		public HttpClientHelper(IHttpClientFactory clientFactory,
 								IConfiguration configuration)
@@ -27,19 +32,21 @@ namespace WooliesXTechChallengeApi.Implementations.Helpers
 			_clientFactory = clientFactory;
 			_configuration = configuration;
 		}
-		
-		public async Task<string> CallGet()
+
+		public async Task<string> CallGet<TService>()
 		{
-			var serviceName = nameof(TService);
-			var resourceName = serviceName.Substring(0, serviceName.IndexOf(serviceKeyword));
+			var service = typeof(TService);
+			var resourceName = service.Name.Substring(0, service.Name.IndexOf(serviceKeyword));
 
 			var httpClient = _clientFactory.CreateClient();
-			 var requestString = _configuration[httpResourceBaseAddressConfigName]
-						+ requiredParameterString 
-						+_configuration["httpTokenConfigName"];
+			var requestString = _configuration[httpResourceBaseAddressConfigName]
+								+ resourceName.ToLower()
+								+ requiredParameterString
+								+ _configuration[httpTokenConfigName];
 
 			var result = await httpClient.GetAsync(requestString);
 			return await result.Content.ReadAsStringAsync();
+			//return null;
 		}
 
 		public HttpClient CallPost()

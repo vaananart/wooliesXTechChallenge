@@ -28,7 +28,7 @@ namespace WooliesXTechChallengeApi.Controllers
 		}
 
 		[HttpGet]
-		public async Task<UserDetails> Get()
+		public async Task<UserDetailsResultModel> Get()
 		{
 			_logger.LogInformation("UserController:GET: Logged before executing UserService.");
 			try

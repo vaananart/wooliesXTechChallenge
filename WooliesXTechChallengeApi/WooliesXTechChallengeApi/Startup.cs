@@ -38,11 +38,15 @@ namespace WooliesXTechChallengeApi
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WooliesXTechChallengeApi", Version = "v1" });
 			});
-			services.AddSingleton<IProductService, ProductService>()
+			services.AddSingleton<IProductsService, ProductsService>()
 					.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
 					.AddSingleton<ITrolleyService, TrolleyService>()
 					.AddSingleton<IUserService, UserService>()
-					.AddHttpClient<IHttpClientHelper<ProductService>, HttpClientHelper<ProductService>>();
+					.AddSingleton<IProductsService, ProductsService>()
+					.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
+					.AddSingleton<IHttpClientHelper, HttpClientHelper>()
+					.AddHttpClient()
+					.AddAutoMapper(typeof(Startup));
 
 					
 		}

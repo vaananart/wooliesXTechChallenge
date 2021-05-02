@@ -9,6 +9,6 @@ namespace WooliesXTechChallengeApi.Inferfaces.Services
 {
 	public interface IUserService
 	{
-		UserDetails GetUser();
+		UserDetailsResultModel GetUser();
 	}
 }

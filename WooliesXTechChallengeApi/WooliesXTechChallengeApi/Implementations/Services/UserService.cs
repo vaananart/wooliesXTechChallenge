@@ -26,10 +26,10 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 			_logger = logger;
 			_configuration = configuration;
 		}
-		public UserDetails GetUser()
+		public UserDetailsResultModel GetUser()
 		{
 			_logger.LogInformation("UserService:GetUser: Returning user name and token.");
-			return new UserDetails
+			return new UserDetailsResultModel
 			{
 				Name = _configuration[nameConfig],
 				Token = _configuration[tokenConfig]
