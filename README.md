@@ -1,7 +1,10 @@
 ## README
 
 ### Running the code.
-* Since the the Challenge consist to one project `dotnet clean;dotnet build;dotnet run --project ".\WooliesXTechChallengeApi\WooliesXTechChallengeApi\"`
+* After you checkout out the source code from the `develop` branch, go to `WooliesXTechChallengeApi` folder in the repository to open the solution in Visual Studio 2019. 
+* Since the the Challenge consist to one project you can also build via commandline if you have dotnet command install. Following is the command to execute.
+ `dotnet clean;dotnet build;dotnet run --project ".\WooliesXTechChallengeApi\WooliesXTechChallengeApi\"`. 
+ The other project is UnitTest Project.
 
 * Alternatively, you can open the solution in Visual Studio 2019 and build run.
 * Upon running the WebApp via VS 2019, SwaggerUI should be open up for you.
@@ -12,14 +15,24 @@
 
 ### How to use the App
 * You can use Swagger UI while the WebApp is running.
+* Alternatively, the WEB App is running in Azure with following base url `https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api`
+
+I used the following urls to test with WooliesX.
+
+Exercise 1: https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api
+
+Exercise 2: https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/products?sortOption=Low
+
+Exercise 3: https://wooliesxtechchallengeapi20210430235415.azurewebsites.net/api/cart
+
+Token: 07a1fed8-57de-410c-b2de-ecc425dd1fb5
+
+
 
 NOTE: Fine grand details about the code and and design can be found documented below.
-Experience, ideas and thought processes can be found described per Exercise.  
+Experience, ideas and thought processes can be found described per Exercise in the Summary Pointers.  
 
-### Summary Pointers:
-
-
-
+# Summary Pointers:
 ### Running the test with wooliesX api
 
 NOTE: THe bold number labels found on the Sequences Diagrams are steps takens is passing or retrieving data.
