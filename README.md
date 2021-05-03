@@ -1,9 +1,26 @@
 ## README
 
+### Running the code.
+* Since the the Challenge consist to one project `dotnet clean;dotnet build;dotnet run --project ".\WooliesXTechChallengeApi\WooliesXTechChallengeApi\"`
+
+* Alternatively, you can open the solution in Visual Studio 2019 and build run.
+* Upon running the WebApp via VS 2019, SwaggerUI should be open up for you.
+
+* Similarly, There are tested added to cover codebase where logics are.
+* All Services and HttpXXXClientHelpers are covered with unit tests.
+
+
+### How to use the App
+* You can use Swagger UI while the WebApp is running.
+
+NOTE: Fine grand details about the code and and design can be found documented below.
+Experience, ideas and thought processes can be found described per Exercise.  
+
 ### Summary Pointers:
 
 
-### Running the test with wooliesx api
+
+### Running the test with wooliesX api
 
 NOTE: THe bold number labels found on the Sequences Diagrams are steps takens is passing or retrieving data.
 ## Exercise 1:
@@ -94,9 +111,6 @@ Noticed that the website is not sending the token to the backend. Following is t
 
 #### Source Code:
 * I used GitFlow pattern to branching out of master and working on develop branch
-
-#### Running the code.
-* Since the the Challenge consist to one project `dotnet clean;dotnet build;dotnet run --project ""`
 
 #### Resource folder
 * the resources folder have the postman collection which is used to test the apis in Azure for this hosted app.
