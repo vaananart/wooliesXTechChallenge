@@ -15,6 +15,7 @@ namespace WooliesXTechChallengeApi.Implementations.Helpers
 		private const string httpResourceBaseAddressConfigName = "wooliesXapis:BaseUrl";
 		private const string httpTokenConfigName = "wooliesXApis:Token";
 		private const string requiredParameterString = "?token=";
+		private const string resourceSection = "wooliesXApis:Resources:";
 		private readonly ILogger<HttpGETClientHelper> _logger;
 
 		//
@@ -37,7 +38,7 @@ namespace WooliesXTechChallengeApi.Implementations.Helpers
 
 			var httpClient = _clientFactory.CreateClient();
 			var requestString = _configuration[httpResourceBaseAddressConfigName]
-								+ resourceName.ToLower()
+								+ (_configuration[resourceSection + resourceName] ?? resourceName.ToLower())
 								+ requiredParameterString
 								+ _configuration[httpTokenConfigName];
 
@@ -62,11 +63,6 @@ namespace WooliesXTechChallengeApi.Implementations.Helpers
 				throw new Exception($"HttpGETClientHelper:CallGet<{service.Name}>(): following exception thrown:{ ex.Message },  when calling following url :{requestString}");
 			}
 			return response;
-		}
-
-		public HttpClient CallPost()
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

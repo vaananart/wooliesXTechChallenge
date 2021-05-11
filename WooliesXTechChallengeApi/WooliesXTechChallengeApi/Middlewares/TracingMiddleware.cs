@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
+using Newtonsoft.Json;
+
 namespace WooliesXTechChallengeApi.Middlewares
 {
 	public class TracingMiddleware
@@ -27,6 +29,7 @@ namespace WooliesXTechChallengeApi.Middlewares
 			_logger.LogInformation("TracingMiddleware: this is a hit when Invoked");
 			_logger.LogInformation($"TracingMiddleware: Request => {context.Request.Path.ToString()}");
 			_logger.LogInformation($"TracingMiddleware: Method => {context.Request.Method}");
+			_logger.LogInformation($"TracingMiddleware: Headers =>{JsonConvert.SerializeObject(context.Request.Headers.Values,Formatting.Indented)}");
 
 			await this._next(context);
 

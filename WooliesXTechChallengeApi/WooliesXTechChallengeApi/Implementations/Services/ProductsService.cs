@@ -34,17 +34,28 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 		{
 			_logger.LogInformation($"{typeof(ProductsService).Name}:GetSortedProducts: Received option: {option}");
 
-			string result = string.Empty;
-
-			
-
 			try
 			{
-				result = await _productResourceHttpClient.CallGet<ProductsService>();
-				_logger.LogDebug($"{ typeof(ProductsService).Name}:GetSortedProducts: received payload : {result}");
-			
+				
+				/**NOTE:
+				 * This needs to be seperated contained. It's not a one line execution.
+				 * It needs to perform serveral steps to get to end result like the 
+				 * rest of the switch-case results. 
+				 */
+				if (option == SortOptionEnums.Recommended)
+				{
+					var rawPopularityData = await GetProductsForPopularityAnalysis();
+					var orderedProductRankkedResult = GetSortedProductsByPopularity(rawPopularityData);
+					_logger.LogDebug($"{ typeof(ProductsService).Name}:GetSortedProducts:SortedOption=Recommended:received payload : {orderedProductRankkedResult}");
 
-				var products = JsonConvert.DeserializeObject<IEnumerable<ProductModel>>(result);
+					return orderedProductRankkedResult;
+				}
+
+				var result = _productResourceHttpClient.CallGet<ProductsService>();
+				_logger.LogDebug($"{ typeof(ProductsService).Name}:GetSortedProducts: received payload : {result}");
+
+				await Task.WhenAll(result);
+				var products = JsonConvert.DeserializeObject<IEnumerable<ProductModel>>(result.Result);
 
 				switch (option)
 				{
@@ -56,8 +67,6 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 						return GetProductsByNameAscending(products);
 					case SortOptionEnums.Descending:
 						return GetProductsByNameDescending(products);
-					case SortOptionEnums.Recommended:
-						return await GetSortedProductsByPopularity(products);
 				}
 			}
 			catch (Exception ex)
@@ -69,31 +78,40 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 			return new List<ProductModel>();
 		}
 
-		private async Task<IEnumerable<ProductModel>> GetSortedProductsByPopularity(IEnumerable<ProductModel> products)
+		private async Task<(IEnumerable<ProductModel> Products, IEnumerable<ProductModel> HistoricalProducts)> GetProductsForPopularityAnalysis()
 		{
-			IEnumerable<ProductModel> shopperHistoryProducts = null;
+
+			IEnumerable<ProductModel> products = null;
+			IEnumerable<ProductModel> historicalProducts = null;
 
 			try
 			{
-				shopperHistoryProducts = (await _shopperHistoryService.GetHistory())
-											.SelectMany(x => x.Products);
+				var shopperHistoryRecords = _shopperHistoryService.GetHistory();
+				var result = _productResourceHttpClient.CallGet<ProductsService>();
+
+				await Task.WhenAll(shopperHistoryRecords, result);
+
+				 products = JsonConvert.DeserializeObject<IEnumerable<ProductModel>>(result.Result);
+				 historicalProducts = shopperHistoryRecords.Result.SelectMany(x => x.Products);
+
 			}
 			catch (Exception ex)
 			{
 				_logger.LogError($"ProductsService:GetSortedProductsByPopularity: Error: {ex.Message}");
 				throw new Exception($"ProductsService:GetSortedProductsByPopularity: Error: {ex.Message}");
 			}
-			var localResult = GetShopperHistoryProductsByPopularitySorted(shopperHistoryProducts).ToList();
 
-			var localResultNames = localResult.Select(x => x.Name);
-			var setDifference = products.Where(x => !localResultNames.Contains(x.Name));
-			localResult.AddRange(setDifference);
-			return localResult.AsEnumerable();
+			return (products, historicalProducts);
 		}
 
-		public Task GetSortedProducts(object sortOptionEnum)
+		private  IEnumerable<ProductModel> GetSortedProductsByPopularity((IEnumerable<ProductModel> Products, IEnumerable<ProductModel> HistoricalProducts) productCollection)
 		{
-			throw new NotImplementedException();
+			var localResult = GetShopperHistoryProductsByPopularitySorted(productCollection.HistoricalProducts).ToList();
+
+			var localResultNames = localResult.Select(x => x.Name);
+			var setDifference = productCollection.Products.Where(x => !localResultNames.Contains(x.Name));
+			localResult.AddRange(setDifference);
+			return localResult.AsEnumerable();
 		}
 
 		private IEnumerable<ProductModel> GetShopperHistoryProductsByPopularitySorted(IEnumerable<ProductModel> rawProductList) => (
