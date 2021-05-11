@@ -7,6 +7,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using Swashbuckle.AspNetCore.Annotations;
+
 using WooliesXTechChallengeApi.Controllers.ResultModels;
 using WooliesXTechChallengeApi.DataModels;
 using WooliesXTechChallengeApi.Enums;
@@ -31,8 +33,15 @@ namespace WooliesXTechChallengeApi.Controllers
 			_productService = productService;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sortOption"></param>
+		/// <returns></returns>
 		[HttpGet]
-		public async Task<ActionResult> Get(SortOptionEnums sortOption)
+		[ProducesResponseType(typeof(IEnumerable<ProductResultModel>), 200)]
+		[ProducesResponseType(500)]
+		public async Task<ActionResult> Get([FromQuery, SwaggerParameter("SortOption")]SortOptionEnums sortOption)
 		{
 			_logger.LogInformation($"ProductController:Get: Received sortOption:{sortOption}");
 			IEnumerable<ProductResultModel> convertedResult = null;

@@ -29,7 +29,7 @@ namespace WooliesXTechChallengeApi.Middlewares
 			_logger.LogInformation("TracingMiddleware: this is a hit when Invoked");
 			_logger.LogInformation($"TracingMiddleware: Request => {context.Request.Path.ToString()}");
 			_logger.LogInformation($"TracingMiddleware: Method => {context.Request.Method}");
-			_logger.LogInformation($"TracingMiddleware: Headers =>{JsonConvert.SerializeObject(context.Request.Headers.Values,Formatting.Indented)}");
+			_logger.LogInformation($"TracingMiddleware: Headers =>{JsonConvert.SerializeObject(context.Request.Headers.ToList(),Formatting.Indented)}");
 
 			await this._next(context);
 

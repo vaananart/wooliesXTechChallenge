@@ -24,6 +24,8 @@ namespace WooliesXTechChallengeApi.Controllers
 			_trolleyService = trolleyService;
 		}
 		[HttpPost("trolleyTotal")]
+		[ProducesResponseType(typeof(string),200)]
+		[ProducesResponseType(500)]
 		public async Task<ActionResult> ComputeTotal([FromBody] JObject order)
 		{
 			_logger.LogInformation($"TrolleyController:ComputeTotal:order => {order.ToString()}");
