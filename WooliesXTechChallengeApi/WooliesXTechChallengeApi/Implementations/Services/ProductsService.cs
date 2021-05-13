@@ -36,7 +36,7 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 
 			try
 			{
-				
+
 				/**NOTE:
 				 * This needs to be seperated contained. It's not a one line execution.
 				 * It needs to perform serveral steps to get to end result like the 
@@ -57,25 +57,20 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 				await Task.WhenAll(result);
 				var products = JsonConvert.DeserializeObject<IEnumerable<ProductModel>>(result.Result);
 
-				switch (option)
+				return option switch
 				{
-					case SortOptionEnums.Low:
-						return GetProductsByPriceAscending(products);
-					case SortOptionEnums.High:
-						return GetProductsByPriceDescending(products);
-					case SortOptionEnums.Ascending:
-						return GetProductsByNameAscending(products);
-					case SortOptionEnums.Descending:
-						return GetProductsByNameDescending(products);
-				}
+					SortOptionEnums.Low => GetProductsByPriceAscending(products),
+					SortOptionEnums.High => GetProductsByPriceDescending(products),
+					SortOptionEnums.Ascending => GetProductsByNameAscending(products),
+					SortOptionEnums.Descending => GetProductsByNameDescending(products),
+					_ => new List<ProductModel>(),
+				};
 			}
 			catch (Exception ex)
 			{
 				_logger.LogError($"{ typeof(ProductsService).Name}:GetSortedProducts: Error : {ex}");
 				throw new Exception($"{ typeof(ProductsService).Name}:GetSortedProducts: Error : {ex}");
 			}
-
-			return new List<ProductModel>();
 		}
 
 		private async Task<(IEnumerable<ProductModel> Products, IEnumerable<ProductModel> HistoricalProducts)> GetProductsForPopularityAnalysis()
