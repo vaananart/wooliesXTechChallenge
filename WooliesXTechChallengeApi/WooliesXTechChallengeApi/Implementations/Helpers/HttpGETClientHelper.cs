@@ -35,6 +35,8 @@ namespace WooliesXTechChallengeApi.Implementations.Helpers
 		{
 			var service = typeof(TService);
 			var resourceName = service.Name.Substring(0, service.Name.IndexOf(serviceKeyword));
+			if (string.IsNullOrEmpty(resourceName))
+				throw new NullReferenceException($"Can't find the matching configuration for Service:{service.Name}");
 
 			var httpClient = _clientFactory.CreateClient();
 			var requestString = _configuration[httpResourceBaseAddressConfigName]
