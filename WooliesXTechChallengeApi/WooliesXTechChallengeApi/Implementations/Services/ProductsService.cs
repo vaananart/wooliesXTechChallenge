@@ -107,38 +107,5 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 			localResult.AddRange(setDifference);
 			return localResult.AsEnumerable();
 		}
-
-		//private IEnumerable<ProductModel> GetShopperHistoryProductsByPopularitySorted(IEnumerable<ProductModel> rawProductList) => (
-		//																											from product in rawProductList
-		//																											group product by new { product.Name }
-		//																											into GroupByName
-		//																											select new
-		//																											{
-		//																												Name = GroupByName.Key.Name,
-		//																												Count = GroupByName.Count() * rawProductList
-		//																																				.Where(x => x.Name == GroupByName.Key.Name)
-		//																																				.Sum(y => y.Quantity),
-		//																												Price = rawProductList
-		//																														.Where(x => x.Name == GroupByName.Key.Name)
-		//																														.FirstOrDefault().Price
-		//																											}
-		//																										)
-		//																										.OrderByDescending(x => x.Count)
-		//																										.Select(y =>
-		//																											new ProductModel
-		//																											{
-		//																												Name = y.Name,
-		//																												Price = y.Price
-		//																											}
-		//																										);
-		//private IEnumerable<ProductModel> GetProductsByPriceAscending(IEnumerable<ProductModel> rawProductList) => rawProductList
-		//																										.OrderBy(x => x.Price);
-
-		//private IEnumerable<ProductModel> GetProductsByPriceDescending(IEnumerable<ProductModel> rawProductList) => rawProductList
-		//																											.OrderByDescending(x => x.Price);
-		//private IEnumerable<ProductModel> GetProductsByNameAscending(IEnumerable<ProductModel> rawProductList) => rawProductList
-		//																											.OrderBy(x => x.Name);
-		//private IEnumerable<ProductModel> GetProductsByNameDescending(IEnumerable<ProductModel> rawProductList) => rawProductList
-		//																										.OrderByDescending(x => x.Name);
 	}
 }
