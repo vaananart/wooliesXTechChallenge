@@ -20,14 +20,17 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 		private readonly ILogger _logger;
 		private readonly IShopperHistoryService _shopperHistoryService;
 		private readonly IHttpGETClientHelper _productResourceHttpClient;
+		private readonly IDictionary<string, IProductSorter> _productSorters;
 
 		public ProductsService(ILogger<ProductsService> logger
 								, IShopperHistoryService shopperHistoryService
-								, IHttpGETClientHelper httpClientHelper)
+								, IHttpGETClientHelper httpClientHelper
+								, IDictionary<string,IProductSorter> productSorters)
 		{
 			_logger = logger;
 			_shopperHistoryService = shopperHistoryService;
 			_productResourceHttpClient = httpClientHelper;
+			_productSorters = productSorters;
 		}
 
 		public async Task<IEnumerable<ProductModel>> GetSortedProducts(SortOptionEnums option)
@@ -57,20 +60,16 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 				await Task.WhenAll(result);
 				var products = JsonConvert.DeserializeObject<IEnumerable<ProductModel>>(result.Result);
 
-				return option switch
-				{
-					SortOptionEnums.Low => GetProductsByPriceAscending(products),
-					SortOptionEnums.High => GetProductsByPriceDescending(products),
-					SortOptionEnums.Ascending => GetProductsByNameAscending(products),
-					SortOptionEnums.Descending => GetProductsByNameDescending(products),
-					_ => new List<ProductModel>(),
-				};
+				if(_productSorters.ContainsKey(option.ToString()))
+					return _productSorters[option.ToString()].GetSortedProducts(products);
 			}
 			catch (Exception ex)
 			{
 				_logger.LogError($"{ typeof(ProductsService).Name}:GetSortedProducts: Error : {ex}");
 				throw new Exception($"{ typeof(ProductsService).Name}:GetSortedProducts: Error : {ex}");
 			}
+
+			return new List<ProductModel>();
 		}
 
 		private async Task<(IEnumerable<ProductModel> Products, IEnumerable<ProductModel> HistoricalProducts)> GetProductsForPopularityAnalysis()
@@ -101,7 +100,7 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 
 		private  IEnumerable<ProductModel> GetSortedProductsByPopularity((IEnumerable<ProductModel> Products, IEnumerable<ProductModel> HistoricalProducts) productCollection)
 		{
-			var localResult = GetShopperHistoryProductsByPopularitySorted(productCollection.HistoricalProducts).ToList();
+			var localResult = _productSorters[SortOptionEnums.Recommended.ToString()].GetSortedProducts(productCollection.HistoricalProducts).ToList();
 
 			var localResultNames = localResult.Select(x => x.Name);
 			var setDifference = productCollection.Products.Where(x => !localResultNames.Contains(x.Name));
@@ -109,37 +108,37 @@ namespace WooliesXTechChallengeApi.Implementations.Services
 			return localResult.AsEnumerable();
 		}
 
-		private IEnumerable<ProductModel> GetShopperHistoryProductsByPopularitySorted(IEnumerable<ProductModel> rawProductList) => (
-																													from product in rawProductList
-																													group product by new { product.Name }
-																													into GroupByName
-																													select new
-																													{
-																														Name = GroupByName.Key.Name,
-																														Count = GroupByName.Count() * rawProductList
-																																						.Where(x => x.Name == GroupByName.Key.Name)
-																																						.Sum(y => y.Quantity),
-																														Price = rawProductList
-																																.Where(x => x.Name == GroupByName.Key.Name)
-																																.FirstOrDefault().Price
-																													}
-																												)
-																												.OrderByDescending(x => x.Count)
-																												.Select(y =>
-																													new ProductModel
-																													{
-																														Name = y.Name,
-																														Price = y.Price
-																													}
-																												);
-		private IEnumerable<ProductModel> GetProductsByPriceAscending(IEnumerable<ProductModel> rawProductList) => rawProductList
-																												.OrderBy(x => x.Price);
+		//private IEnumerable<ProductModel> GetShopperHistoryProductsByPopularitySorted(IEnumerable<ProductModel> rawProductList) => (
+		//																											from product in rawProductList
+		//																											group product by new { product.Name }
+		//																											into GroupByName
+		//																											select new
+		//																											{
+		//																												Name = GroupByName.Key.Name,
+		//																												Count = GroupByName.Count() * rawProductList
+		//																																				.Where(x => x.Name == GroupByName.Key.Name)
+		//																																				.Sum(y => y.Quantity),
+		//																												Price = rawProductList
+		//																														.Where(x => x.Name == GroupByName.Key.Name)
+		//																														.FirstOrDefault().Price
+		//																											}
+		//																										)
+		//																										.OrderByDescending(x => x.Count)
+		//																										.Select(y =>
+		//																											new ProductModel
+		//																											{
+		//																												Name = y.Name,
+		//																												Price = y.Price
+		//																											}
+		//																										);
+		//private IEnumerable<ProductModel> GetProductsByPriceAscending(IEnumerable<ProductModel> rawProductList) => rawProductList
+		//																										.OrderBy(x => x.Price);
 
-		private IEnumerable<ProductModel> GetProductsByPriceDescending(IEnumerable<ProductModel> rawProductList) => rawProductList
-																													.OrderByDescending(x => x.Price);
-		private IEnumerable<ProductModel> GetProductsByNameAscending(IEnumerable<ProductModel> rawProductList) => rawProductList
-																													.OrderBy(x => x.Name);
-		private IEnumerable<ProductModel> GetProductsByNameDescending(IEnumerable<ProductModel> rawProductList) => rawProductList
-																												.OrderByDescending(x => x.Name);
+		//private IEnumerable<ProductModel> GetProductsByPriceDescending(IEnumerable<ProductModel> rawProductList) => rawProductList
+		//																											.OrderByDescending(x => x.Price);
+		//private IEnumerable<ProductModel> GetProductsByNameAscending(IEnumerable<ProductModel> rawProductList) => rawProductList
+		//																											.OrderBy(x => x.Name);
+		//private IEnumerable<ProductModel> GetProductsByNameDescending(IEnumerable<ProductModel> rawProductList) => rawProductList
+		//																										.OrderByDescending(x => x.Name);
 	}
 }

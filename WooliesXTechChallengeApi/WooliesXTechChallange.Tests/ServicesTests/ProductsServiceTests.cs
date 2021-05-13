@@ -55,7 +55,20 @@ namespace WooliesXTechChallange.Tests.ServicesTests
 			_mockShopperHistorySevice.Setup(x => x.GetHistory())
 										.ReturnsAsync(remoteObjectList);
 
-			service = new ProductsService(_mockLogger.Object, _mockShopperHistorySevice.Object, _mockHttpClient.Object);
+			var list = from t in Assembly
+									.GetAssembly(typeof(IProductSorter))
+									.GetTypes()
+					   where t.GetInterfaces().Contains(typeof(IProductSorter))
+					   select t;
+
+			IDictionary<string, IProductSorter> productSorterLookup = new Dictionary<string, IProductSorter>();
+			foreach (Type sorter in list)
+			{
+				var instance = Activator.CreateInstance(sorter) as IProductSorter;
+				productSorterLookup[instance.KeyName] = instance;
+			}
+
+			service = new ProductsService(_mockLogger.Object, _mockShopperHistorySevice.Object, _mockHttpClient.Object, productSorterLookup);
 		}
 
 		private static string ExtractFileContent(string filename)

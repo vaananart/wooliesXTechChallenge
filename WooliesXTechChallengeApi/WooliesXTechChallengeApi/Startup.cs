@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Builder;
@@ -43,11 +44,30 @@ namespace WooliesXTechChallengeApi
 					.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
 					.AddSingleton<ITrolleyService, TrolleyService>()
 					.AddSingleton<IUserService, UserService>()
-					.AddSingleton<IProductsService, ProductsService>()
 					.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
 					.AddSingleton<ITrolleyService, TrolleyService>()
 					.AddSingleton<IHttpGETClientHelper, HttpGETClientHelper>()
 					.AddSingleton<IHttpPOSTClientHelper, HttpPOSTClientHelper>()
+					.AddSingleton<IProductsService, ProductsService>(x => {
+						var list = from t in Assembly
+											 .GetExecutingAssembly()
+											 .GetTypes()
+								   where t.GetInterfaces().Contains(typeof(IProductSorter))
+								   select t;
+
+						IDictionary<string, IProductSorter> productSorterLookup = new Dictionary<string, IProductSorter>();
+						foreach (Type sorter in list)
+						{
+							var instance = Activator.CreateInstance(sorter) as IProductSorter;
+							productSorterLookup[instance.KeyName] = instance;
+						}
+
+						var logger = x.GetRequiredService<ILogger<ProductsService>>();
+						var shopperHistoryService = x.GetRequiredService<IShopperHistoryService>();
+						var httpGETClientHelper = x.GetRequiredService<IHttpGETClientHelper>();
+
+						return new ProductsService(logger,shopperHistoryService,httpGETClientHelper,productSorterLookup);
+					})
 					.AddHttpClient()
 					.AddAutoMapper(typeof(Startup));
 
