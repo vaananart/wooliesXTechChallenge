@@ -14,11 +14,11 @@ using Newtonsoft.Json;
 
 using NUnit.Framework;
 
-using WooliesXTechChallengeApi.DataModels;
-using WooliesXTechChallengeApi.Enums;
-using WooliesXTechChallengeApi.Implementations.Services;
-using WooliesXTechChallengeApi.Inferfaces.Helpers;
-using WooliesXTechChallengeApi.Inferfaces.Services;
+using WooliesXTechChallenge.Core.Implementations.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Helpers;
+using WooliesXTechChallenge.Core.Inferfaces.Services;
+using WooliesXTechChallenge.DataModels.DataModels;
+using WooliesXTechChallenge.DataModels.Enums;
 
 namespace WooliesXTechChallange.Tests.ServicesTests
 {

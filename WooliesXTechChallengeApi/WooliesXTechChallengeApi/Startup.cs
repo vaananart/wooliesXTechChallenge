@@ -1,22 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-using WooliesXTechChallengeApi.Implementations.Helpers;
-using WooliesXTechChallengeApi.Implementations.Services;
-using WooliesXTechChallengeApi.Inferfaces.Helpers;
-using WooliesXTechChallengeApi.Inferfaces.Services;
+using WooliesXTechChallenge.Core.Implementations.Helpers;
+using WooliesXTechChallenge.Core.Implementations.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Helpers;
+using WooliesXTechChallenge.Core.Inferfaces.Services;
+
 using WooliesXTechChallengeApi.Middlewares;
 
 namespace WooliesXTechChallengeApi
@@ -49,7 +42,8 @@ namespace WooliesXTechChallengeApi
 					.AddSingleton<IHttpGETClientHelper, HttpGETClientHelper>()
 					.AddSingleton<IHttpPOSTClientHelper, HttpPOSTClientHelper>()
 					.AddHttpClient()
-					.AddAutoMapper(typeof(Startup));
+					.AddAutoMapper(typeof(WooliesXTechChallenge.Util.Utils.Mapping.ProductMappingProfile)
+					, typeof(WooliesXTechChallenge.Util.Utils.Mapping.UserDetailsMappingProfile));
 
 			services.AddMvc()
 					.AddNewtonsoftJson();
@@ -59,7 +53,8 @@ namespace WooliesXTechChallengeApi
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			app.UseMiddleware<TracingMiddleware>();
+			//NOTE:JG: Uncomment the following to diagnose the raw HTTP request
+			//app.UseMiddleware<TracingMiddleware>();
 
 			if (env.IsDevelopment())
 			{

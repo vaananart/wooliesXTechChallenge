@@ -14,9 +14,9 @@ using Newtonsoft.Json.Linq;
 
 using NUnit.Framework;
 
-using WooliesXTechChallengeApi.Implementations.Services;
-using WooliesXTechChallengeApi.Inferfaces.Helpers;
-using WooliesXTechChallengeApi.Inferfaces.Services;
+using WooliesXTechChallenge.Core.Implementations.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Helpers;
+using WooliesXTechChallenge.Core.Inferfaces.Services;
 
 namespace WooliesXTechChallange.Tests.ServicesTests
 {

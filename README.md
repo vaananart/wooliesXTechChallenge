@@ -1,13 +1,13 @@
 ## README
 
 ### Running the code.
-* After you checkout out the source code from the `develop` branch, go to `WooliesXTechChallengeApi` folder in the repository to open the solution in Visual Studio 2019. 
+* After you checkout out the source code from the `develop` branch, go to `WooliesXTechChallengeApi` folder in the repository to open the solution in Visual Studio 2022. 
 * Since the the Challenge consist to one project you can also build via commandline if you have dotnet command install. Following is the command to execute.
  `dotnet clean;dotnet build;dotnet run --project ".\WooliesXTechChallengeApi\WooliesXTechChallengeApi\"`. 
  The other project is UnitTest Project.
 
-* Alternatively, you can open the solution in Visual Studio 2019 and build run.
-* Upon running the WebApp via VS 2019, SwaggerUI should be open up for you.
+* Alternatively, you can open the solution in Visual Studio 2022 and build run.
+* Upon running the WebApp via VS 2022, SwaggerUI should be open up for you.
 
 * Similarly, There are tested added to cover codebase where logics are.
 * All Services and HttpXXXClientHelpers are covered with unit tests.
@@ -175,8 +175,8 @@ I  am happy that I was able to implement some new features of the C# language.
 * Finish of the unit tests for controller layer.
 * Not able to setup swagger in Azure cloud, so would be nice to know why and find a workaround. (Note: Swagger in working locally)
 
-
-
+## References:
+* https://dev-wooliesx-recruitment.azurewebsites.net/?token=07a1fed8-57de-410c-b2de-ecc425dd1fb5
 
 
 

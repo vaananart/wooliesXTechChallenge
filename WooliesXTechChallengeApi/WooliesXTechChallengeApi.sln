@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31105.61
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WooliesXTechChallengeApi", "WooliesXTechChallengeApi\WooliesXTechChallengeApi.csproj", "{301D3CE9-6AD0-4109-9885-E6D3710803DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesXTechChallange.Tests", "WooliesXTechChallange.Tests\WooliesXTechChallange.Tests.csproj", "{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WooliesXTechChallange.Tests", "WooliesXTechChallange.Tests\WooliesXTechChallange.Tests.csproj", "{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesXTechChallenge.Core", "WooliesXTechChallenge.Core\WooliesXTechChallenge.Core.csproj", "{B98C0C53-4AB0-499B-A79C-987E1283AB18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesXTechChallenge.DataModels", "WooliesXTechChallenge.DataModels\WooliesXTechChallenge.DataModels.csproj", "{121C6811-60E8-4393-A325-8C3FD9D59CBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WooliesXTechChallenge.Util", "WooliesXTechChallenge.Util\WooliesXTechChallenge.Util.csproj", "{5B7A8685-75F7-470B-8041-4F19B0FB40ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E8DA8DB-BFFD-4F71-81D2-90FAF95E3487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B98C0C53-4AB0-499B-A79C-987E1283AB18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B98C0C53-4AB0-499B-A79C-987E1283AB18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B98C0C53-4AB0-499B-A79C-987E1283AB18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B98C0C53-4AB0-499B-A79C-987E1283AB18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{121C6811-60E8-4393-A325-8C3FD9D59CBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{121C6811-60E8-4393-A325-8C3FD9D59CBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{121C6811-60E8-4393-A325-8C3FD9D59CBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{121C6811-60E8-4393-A325-8C3FD9D59CBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B7A8685-75F7-470B-8041-4F19B0FB40ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B7A8685-75F7-470B-8041-4F19B0FB40ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B7A8685-75F7-470B-8041-4F19B0FB40ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B7A8685-75F7-470B-8041-4F19B0FB40ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
