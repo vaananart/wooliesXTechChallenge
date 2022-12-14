@@ -6,39 +6,36 @@ using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json.Linq;
 
-using WooliesXTechChallengeApi.Inferfaces.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Services;
 
-namespace WooliesXTechChallengeApi.Controllers
+namespace WooliesXTechChallengeApi.Controllers;
+
+[Route("api/cart")]
+[ApiController]
+public class TrolleyController : ControllerBase
 {
-	[Route("api/cart")]
-	[ApiController]
-	public class TrolleyController : ControllerBase
-	{
-		private readonly ILogger<TrolleyController> _logger;
-		private readonly ITrolleyService _trolleyService;
+	private readonly ILogger<TrolleyController> _logger;
+	private readonly ITrolleyService _trolleyService;
 
-		public TrolleyController(ILogger<TrolleyController> logger
-									, ITrolleyService trolleyService)
+	public TrolleyController(ILogger<TrolleyController> logger
+								, ITrolleyService trolleyService)
+	{
+		_logger = logger;
+		_trolleyService = trolleyService;
+	}
+	[HttpPost("trolleyTotal")]
+	public async Task<ActionResult> ComputeTotal([FromBody] JObject order)
+	{
+		_logger.LogInformation($"TrolleyController:ComputeTotal:order => {order.ToString()}");
+		string result = string.Empty;
+		try
 		{
-			_logger = logger;
-			_trolleyService = trolleyService;
+			result = await _trolleyService.CalculateLowestTotal(order);
 		}
-		[HttpPost("trolleyTotal")]
-		[ProducesResponseType(typeof(string),200)]
-		[ProducesResponseType(500)]
-		public async Task<ActionResult> ComputeTotal([FromBody] JObject order)
+		catch (Exception ex)
 		{
-			_logger.LogInformation($"TrolleyController:ComputeTotal:order => {order.ToString()}");
-			string result = string.Empty;
-			try
-			{
-				result = await _trolleyService.CalculateLowestTotal(order);
-			}
-			catch (Exception ex)
-			{
-				return StatusCode(500, ex.Message);
-			}
-			return Ok(result);
+			return StatusCode(500, ex.Message);
 		}
+		return Ok(result);
 	}
 }

@@ -15,12 +15,12 @@ using Newtonsoft.Json.Linq;
 
 using NUnit.Framework;
 
-using WooliesXTechChallengeApi.DataModels;
-using WooliesXTechChallengeApi.Implementations.Services;
-using WooliesXTechChallengeApi.Inferfaces.Helpers;
+using WooliesXTechChallenge.Core.Implementations.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Helpers;
+using WooliesXTechChallenge.DataModels.DataModels;
 
 namespace WooliesXTechChallange.Tests.ServicesTests
-{	
+{
 	[TestFixture]
 	public class ShopperHistoryServiceTests
 	{

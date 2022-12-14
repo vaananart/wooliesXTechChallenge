@@ -13,3 +13,10 @@
 /WooliesXTechChallengeApi/WooliesXTechChallengeApi/Properties/PublishProfiles
 /WooliesXTechChallengeApi/WooliesXTechChallange.Tests/bin/Debug/net5.0
 /WooliesXTechChallengeApi/WooliesXTechChallange.Tests/obj
+WooliesXTechChallengeApi/WooliesXTechChallange.Tests/bin
+WooliesXTechChallengeApi/WooliesXTechChallenge.Core/bin
+WooliesXTechChallengeApi/WooliesXTechChallenge.Core/obj
+WooliesXTechChallengeApi/WooliesXTechChallenge.DataModels/bin
+WooliesXTechChallengeApi/WooliesXTechChallenge.DataModels/obj
+WooliesXTechChallengeApi/WooliesXTechChallenge.Util/bin
+WooliesXTechChallengeApi/WooliesXTechChallenge.Util/obj

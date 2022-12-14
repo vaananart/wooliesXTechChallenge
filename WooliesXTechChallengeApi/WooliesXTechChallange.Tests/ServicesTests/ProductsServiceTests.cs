@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
@@ -14,11 +13,11 @@ using Newtonsoft.Json;
 
 using NUnit.Framework;
 
-using WooliesXTechChallengeApi.DataModels;
-using WooliesXTechChallengeApi.Enums;
-using WooliesXTechChallengeApi.Implementations.Services;
-using WooliesXTechChallengeApi.Inferfaces.Helpers;
-using WooliesXTechChallengeApi.Inferfaces.Services;
+using WooliesXTechChallenge.Core.Implementations.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Helpers;
+using WooliesXTechChallenge.Core.Inferfaces.Services;
+using WooliesXTechChallenge.DataModels.DataModels;
+using WooliesXTechChallenge.DataModels.Enums;
 
 namespace WooliesXTechChallange.Tests.ServicesTests
 {

@@ -15,12 +15,13 @@ using Newtonsoft.Json;
 
 using NUnit.Framework;
 
-using WooliesXTechChallengeApi.DataModels;
-using WooliesXTechChallengeApi.Implementations.Services;
-using WooliesXTechChallengeApi.Inferfaces.Services;
+using WooliesXTechChallenge.Core.Implementations.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Services;
+using WooliesXTechChallenge.DataModels.DataModels;
 
 namespace WooliesXTechChallange.Tests.ServicesTests
-{	[TestFixture]
+{
+	[TestFixture]
 	public class UserServiceTests
 	{
 		private const string jsonConfigFileName = "configurations.json";

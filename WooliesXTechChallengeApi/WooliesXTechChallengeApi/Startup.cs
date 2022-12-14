@@ -1,24 +1,22 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
+using System;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-using WooliesXTechChallengeApi.Implementations.Helpers;
-using WooliesXTechChallengeApi.Implementations.Services;
-using WooliesXTechChallengeApi.Inferfaces.Helpers;
-using WooliesXTechChallengeApi.Inferfaces.Services;
+using WooliesXTechChallenge.Core.Implementations.Helpers;
+using WooliesXTechChallenge.Core.Implementations.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Helpers;
+using WooliesXTechChallenge.Core.Inferfaces.Services;
+
 using WooliesXTechChallengeApi.Middlewares;
+using System.Linq;
 
 namespace WooliesXTechChallengeApi
 {
@@ -40,9 +38,7 @@ namespace WooliesXTechChallengeApi
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WooliesXTechChallengeApi", Version = "v1" });
 			});
-			services
-				//.AddSingleton<IProductsService, ProductsService>()
-					.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
+			services.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
 					.AddSingleton<ITrolleyService, TrolleyService>()
 					.AddSingleton<IUserService, UserService>()
 					.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
@@ -51,7 +47,8 @@ namespace WooliesXTechChallengeApi
 					.AddSingleton<IHttpPOSTClientHelper, HttpPOSTClientHelper>()
 					.AddSingleton<IProductsService, ProductsService>(x => {
 						var list = from t in Assembly
-											 .GetExecutingAssembly()
+											.GetAssembly(typeof(IProductSorter))
+											 //.GetExecutingAssembly()
 											 .GetTypes()
 								   where t.GetInterfaces().Contains(typeof(IProductSorter))
 								   select t;
@@ -67,10 +64,11 @@ namespace WooliesXTechChallengeApi
 						var shopperHistoryService = x.GetRequiredService<IShopperHistoryService>();
 						var httpGETClientHelper = x.GetRequiredService<IHttpGETClientHelper>();
 
-						return new ProductsService(logger,shopperHistoryService,httpGETClientHelper,productSorterLookup);
+						return new ProductsService(logger, shopperHistoryService, httpGETClientHelper, productSorterLookup);
 					})
 					.AddHttpClient()
-					.AddAutoMapper(typeof(Startup));
+					.AddAutoMapper(typeof(WooliesXTechChallenge.Util.Utils.Mapping.ProductMappingProfile)
+					, typeof(WooliesXTechChallenge.Util.Utils.Mapping.UserDetailsMappingProfile));
 
 			services.AddMvc()
 					.AddNewtonsoftJson();
@@ -80,7 +78,8 @@ namespace WooliesXTechChallengeApi
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			app.UseMiddleware<TracingMiddleware>();
+			//NOTE:JG: Uncomment the following to diagnose the raw HTTP request
+			//app.UseMiddleware<TracingMiddleware>();
 
 			if (env.IsDevelopment())
 			{

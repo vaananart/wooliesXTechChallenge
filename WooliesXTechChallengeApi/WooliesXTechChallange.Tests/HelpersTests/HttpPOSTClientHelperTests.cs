@@ -19,12 +19,13 @@ using Newtonsoft.Json.Linq;
 
 using NUnit.Framework;
 
-using WooliesXTechChallengeApi.Implementations.Helpers;
-using WooliesXTechChallengeApi.Implementations.Services;
-using WooliesXTechChallengeApi.Inferfaces.Helpers;
+using WooliesXTechChallenge.Core.Implementations.Helpers;
+using WooliesXTechChallenge.Core.Implementations.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Helpers;
 
 namespace WooliesXTechChallange.Tests.HelpersTests
-{	[TestFixture]
+{
+	[TestFixture]
 	public class HttpPOSTClientHelperTests
 	{
 		private Mock<IHttpClientFactory> _mockHttpClientFactory;

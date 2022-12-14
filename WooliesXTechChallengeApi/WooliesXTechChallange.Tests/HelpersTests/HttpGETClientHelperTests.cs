@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -14,14 +13,11 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.Protected;
 
-using Newtonsoft.Json;
-
 using NUnit.Framework;
 
-using WooliesXTechChallengeApi.DataModels;
-using WooliesXTechChallengeApi.Implementations.Helpers;
-using WooliesXTechChallengeApi.Implementations.Services;
-using WooliesXTechChallengeApi.Inferfaces.Helpers;
+using WooliesXTechChallenge.Core.Implementations.Helpers;
+using WooliesXTechChallenge.Core.Implementations.Services;
+using WooliesXTechChallenge.Core.Inferfaces.Helpers;
 
 namespace WooliesXTechChallange.Tests.HelpersTests
 {
