@@ -40,7 +40,8 @@ namespace WooliesXTechChallengeApi
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "WooliesXTechChallengeApi", Version = "v1" });
 			});
-			services.AddSingleton<IProductsService, ProductsService>()
+			services
+				//.AddSingleton<IProductsService, ProductsService>()
 					.AddSingleton<IShopperHistoryService, ShopperHistoryService>()
 					.AddSingleton<ITrolleyService, TrolleyService>()
 					.AddSingleton<IUserService, UserService>()
